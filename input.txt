@@ -1,12 +1,1 @@
-class Myclass{
-	int main(){
-		char a = 'a';
-		int b = 2;
-		String c = "Hello, World!";
-		while(b < 2){
-			if(b < 2){
-				b = b + 1;
-			}
-		return b;
-		}
-	}
+1 - -1 = 2
