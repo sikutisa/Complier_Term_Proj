@@ -23,8 +23,13 @@ int main(int argc, char* argv[])
 			}
 		}
 		readTXT.close();
+		input.push(make_pair("$", ""));
 	}
-	readTXT.close();
+
+
+
+
+	
 	return 0;
 }
 
