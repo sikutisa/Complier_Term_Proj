@@ -1,12 +1,17 @@
-class Myclass{
+class SimpleExample{
 	int main(){
-		char a = 'a';
-		int b = 2;
-		String c = "Hello, World!";
-		while(b < 2){
-			if(b < 2){
-				b = b + 1;
-			}
-		return b;
+		bool a = true;
+		String b = "Hello, World!"
+		int sum;
+		if(a) {
+			int sum = 10;
 		}
+		int sum = 0;
+		int i = 1;
+		while(i <= 100) {
+			sum += i;
+			i++;
+		}
+		return i;
 	}
+}

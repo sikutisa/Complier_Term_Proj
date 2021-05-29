@@ -3,19 +3,18 @@
 
 int main(int argc, char* argv[])
 {
-	std::ifstream readTXT;
+	ifstream readTXT;
 	readTXT.open(argv[1]);
-	std::deque<std::string> prefix;
-	std::queue<std::pair<std::string, std::string>> input;
-	std::stack<int> SLR_Stack;
-	SLR_Stack.push(0); // initial state
+	stack<string> prefix;
+	queue<pair<string, string>> input;
+	stack<int> SLR_Stack;
 
 	if (readTXT.is_open())
 	{
 		while (!readTXT.eof())
 		{
-			std::string inputbuffer;
-			std::string temp;
+			string inputbuffer;
+			string temp;
 			getline(readTXT, inputbuffer);
 			if (!inputbuffer.empty())
 			{
@@ -28,34 +27,58 @@ int main(int argc, char* argv[])
 	}
 
 	int action = 0;
-	while (action != ACCEPT)
+	pair<string, string> nextInput = input.front();
+	SLR_Stack.push(0); // initial state
+	int count = 1;
+	while (!SLR_Stack.empty())
 	{
-		std::pair<std::string, std::string> nextInput = input.front();
-		int action = actionTable[SLR_Stack.top()][actionHashMap[nextInput.first]];
+		action = actionTable[SLR_Stack.top()][actionHashMap[nextInput.first]];
+		if (action == ACCEPT)
+			break;
 		// reduce & goto
-		if (action > 99)
+		else if (action > 99)
 		{
 			action %= 100;
-
+			action--;
+			for (int i = 0; i < CFG[action].second; ++i)
+			{
+				prefix.pop();
+				SLR_Stack.pop();
+			}
+			prefix.push(CFG[action].first);
+			SLR_Stack.push(gotoTable[SLR_Stack.top()][gotoHashMap[prefix.top()]]);
 		}
 		// shift
 		else
 		{
-			prefix.push_back(nextInput.first);
 			SLR_Stack.push(action);
+			prefix.push(nextInput.first);
+			input.pop();
+			nextInput = input.front();
+			count++;
 		}
-		input.pop();
+
+		if (SLR_Stack.top() == -1)
+		{
+			cout << "Error!:" << endl;
+			if(nextInput.second.empty())
+				cout << "At " << "<" << nextInput.first << ">";
+			else
+				cout << "At " << "<" << nextInput.first << ", " << nextInput.second << ">";
+			cout << "(" << count << "th input)" << endl;
+			return -1;
+		}
 	}
-	
+	cout << "Accept!";
 	return 0;
 }
 
-void makeInputFormat(std::string& temp, std::queue<std::pair<std::string, std::string>>& input)
+void makeInputFormat(string& temp, queue<pair<string, string>>& input)
 {
-	std::string token;
-	std::string value;
-	std::string inputToken;
-	if (temp.find(",") == std::string::npos)
+	string token;
+	string value;
+	string inputToken;
+	if (temp.find(",") == string::npos)
 	{
 		inputToken = temp;
 		value = "";
