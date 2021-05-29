@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <stack>
+#include <queue>
 
+void makeInputFormat(std::string& temp, std::queue<std::pair<std::string, std::string>>& input);
 #endif // !SYNTAX_ANALYZER_H

@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 			{
 				writeTXT.write("<", 1);
 				writeTXT.write(outputTokenArr.at(i).tokenTypeName.c_str(), outputTokenArr.at(i).tokenTypeName.size());
-				writeTXT.write(", ", 2);
+				writeTXT.write(",", 2);
 				writeTXT.write(outputTokenArr.at(i).tokenVal.c_str(), outputTokenArr.at(i).tokenVal.size());
 				writeTXT.write(">", 1);
 			}

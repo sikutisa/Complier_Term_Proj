@@ -2,6 +2,11 @@
 #define SLR_TABLE_H
 
 #define ACCEPT 2609
+#include <string>
+#include <utility>
+#include <vector>
+
+using namespace std;
 
 // 100 이상인 element는 reduce를 의미
 // element - 100인 State로 reduce
@@ -187,3 +192,47 @@ int gotoTable[87][19] =
 	{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
 };
 #endif // !SLR_TABLE_H
+
+pair<vector<string>, string> CFG[]=
+{
+	pair<vector<string>, string>({ "CODE" }, "S"),
+	pair<vector<string>, string>({"VDECL", "CODE"}, "CODE"),
+	pair<vector<string>, string>({"FDECL", "CODE"}, "CODE"),
+	pair<vector<string>, string>({"CDECL", "CODE"}, "CODE"),
+	pair<vector<string>, string>({""}, "CODE"),
+	pair<vector<string>, string>({"vtype", "id", "semi"}, "VDECL"),
+	pair<vector<string>, string>({"vtype", "ASSIGN", "semi"}, "VDECL" ),
+	pair<vector<string>, string>({"id", "assign", "RHS"}, "ASSIGN" ),
+	pair<vector<string>, string>({"EXPR"}, "RHS"),
+	pair<vector<string>, string>({"literal"}, "RHS"),
+	pair<vector<string>, string>({"character"}, "RHS"),
+	pair<vector<string>, string>({"boolstr"}, "RHS"),
+	pair<vector<string>, string>({"EXPR", "addsub", "T"}, "EXPR"),
+	pair<vector<string>, string>({"T"}, "EXPR"),
+	pair<vector<string>, string>({"F", "muldiv", "T"}, "T"),
+	pair<vector<string>, string>({"F"}, "T"),
+	pair<vector<string>, string>({"lparen", "EXPR", "rparen"}, "F"),
+	pair<vector<string>, string>({"id"}, "F"),
+	pair<vector<string>, string>({"num"}, "F"),
+	pair<vector<string>, string>({"vtype", "id", "lparen", "ARG", "rparen", "lbrace", "BLOCK", "RETURN", "rbrace"}, "FDECL"),
+	pair<vector<string>, string>({"vtype", "id", "MOREARGS"}, "ARG"),
+	pair<vector<string>, string>({""}, "ARG"),
+	pair<vector<string>, string>({"comma", "vtype", "id", "MOREARGS"}, "MOREARGS"),
+	pair<vector<string>, string>({""}, "MOREARGS"),
+	pair<vector<string>, string>({"STMT", "BLOCK"}, "BLOCK"),
+	pair<vector<string>, string>({""}, "BLOCK"),
+	pair<vector<string>, string>({"VDECL"}, "STMT"),
+	pair<vector<string>, string>({"ASSIGN", "semi"}, "STMT"),
+	pair<vector<string>, string>({"if", "lparen", "COND", "rparen", "lbrace", "BLOCK", "rbrace", "ELSE"}, "STMT"),
+	pair<vector<string>, string>({"while", "lparen", "COND", "rparen", "lbrace", "BLOCK", "rbrace"}, "STMT"),
+	pair<vector<string>, string>({"P", "comp", "COND"}, "COND"),
+	pair<vector<string>, string>({"P"}, "COND"),
+	pair<vector<string>, string>({"boolstr"}, "P"),
+	pair<vector<string>, string>({"else", "lbrace", "BLOCK", "rbrace"}, "ELSE"),
+	pair<vector<string>, string>({""}, "ELSE"),
+	pair<vector<string>, string>({"return", "RHS", "semi"}, "RETURN"),
+	pair<vector<string>, string>({"class", "id", "lbrace", "ODECL", "rbrace"}, "CDECL"),
+	pair<vector<string>, string>({"VDECL", "ODECL"}, "ODECL"),
+	pair<vector<string>, string>({"FDECL", "ODECL"}, "ODECL"),
+	pair<vector<string>, string>({""}, "ODECL")
+};
