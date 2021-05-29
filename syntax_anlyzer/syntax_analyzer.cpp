@@ -5,6 +5,7 @@ int main(int argc, char* argv[])
 {
 	std::ifstream readTXT;
 	readTXT.open(argv[1]);
+	std::deque<std::string> prefix;
 	std::queue<std::pair<std::string, std::string>> input;
 	std::stack<int> SLR_Stack;
 	SLR_Stack.push(0); // initial state
@@ -26,9 +27,25 @@ int main(int argc, char* argv[])
 		input.push(make_pair("$", ""));
 	}
 
+	int action = 0;
+	while (action != ACCEPT)
+	{
+		std::pair<std::string, std::string> nextInput = input.front();
+		int action = actionTable[SLR_Stack.top()][actionHashMap[nextInput.first]];
+		// reduce & goto
+		if (action > 99)
+		{
+			action %= 100;
 
-
-
+		}
+		// shift
+		else
+		{
+			prefix.push_back(nextInput.first);
+			SLR_Stack.push(action);
+		}
+		input.pop();
+	}
 	
 	return 0;
 }

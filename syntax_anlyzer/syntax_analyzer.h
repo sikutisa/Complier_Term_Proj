@@ -6,6 +6,7 @@
 #include <stack>
 #include <queue>
 #include <map>
+#include <deque>
 
 void makeInputFormat(std::string& temp, std::queue<std::pair<std::string, std::string>>& input);
 #endif // !SYNTAX_ANALYZER_H
