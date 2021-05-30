@@ -5,7 +5,6 @@ int main(int argc, char* argv[])
 {
 	ifstream readTXT;
 	readTXT.open(argv[1]);
-	stack<string> prefix;
 	queue<pair<string, string>> input;
 	stack<int> SLR_Stack;
 
