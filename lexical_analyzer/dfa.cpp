@@ -63,12 +63,12 @@ Token isVarType(unsigned int& start, std::string str)
 		result.initialToken(VARTYPE, "String");
 		start += 6;
 	}
-	else if (str.substr(start, 7) == "Boolean" && start + 7 == str.length())
+	else if (str.substr(start, 7) == "boolean" && start + 7 == str.length())
 	{
 		result.initialToken(VARTYPE, "Boolean");
 		start += 7;
 	}
-	else if (str.substr(start, 7) == "Boolean" && isspace(str.at(start + 7)))
+	else if (str.substr(start, 7) == "boolean" && isspace(str.at(start + 7)))
 	{
 		result.initialToken(VARTYPE, "Boolean");
 		start += 7;

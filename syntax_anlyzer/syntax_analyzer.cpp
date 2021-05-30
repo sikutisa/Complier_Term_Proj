@@ -27,32 +27,32 @@ int main(int argc, char* argv[])
 	}
 
 	int action = 0;
-	pair<string, string> nextInput = input.front();
 	SLR_Stack.push(0); // initial state
+	pair<string, string> nextInput = input.front();
+	int currentState;
 	int count = 1;
 	while (!SLR_Stack.empty())
 	{
-		action = actionTable[SLR_Stack.top()][actionHashMap[nextInput.first]];
+		currentState = SLR_Stack.top();
+		action = actionTable[currentState][actionHashMap[nextInput.first]];
 		if (action == ACCEPT)
 			break;
 		// reduce & goto
 		else if (action > 99)
 		{
 			action %= 100;
-			action--;
 			for (int i = 0; i < CFG[action].second; ++i)
 			{
-				prefix.pop();
 				SLR_Stack.pop();
 			}
-			prefix.push(CFG[action].first);
-			SLR_Stack.push(gotoTable[SLR_Stack.top()][gotoHashMap[prefix.top()]]);
+			currentState = SLR_Stack.top();
+			string gotoInput = CFG[action].first;
+			SLR_Stack.push(gotoTable[currentState][gotoHashMap[gotoInput]]);
 		}
 		// shift
 		else
 		{
 			SLR_Stack.push(action);
-			prefix.push(nextInput.first);
 			input.pop();
 			nextInput = input.front();
 			count++;
@@ -65,11 +65,11 @@ int main(int argc, char* argv[])
 				cout << "At " << "<" << nextInput.first << ">";
 			else
 				cout << "At " << "<" << nextInput.first << ", " << nextInput.second << ">";
-			cout << "(" << count << "th input)" << endl;
+			cout << "(" << count << "th token)" << endl;
 			return -1;
 		}
 	}
-	cout << "Accept!";
+	cout << "Accept!" << endl;
 	return 0;
 }
 

@@ -1,16 +1,15 @@
 class SimpleExample{
 	int main(){
-		bool a = true;
-		String b = "Hello, World!"
+		boolean a = true;
+		String b = "Hello, World!";
 		int sum;
-		if(a) {
+		if(true) {
 			int sum = 10;
 		}
 		int sum = 0;
 		int i = 1;
-		while(i <= 100) {
-			sum += i;
-			i++;
+		while(true) {
+			sum = i + 1;
 		}
 		return i;
 	}

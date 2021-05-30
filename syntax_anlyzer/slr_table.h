@@ -231,9 +231,9 @@ pair<string, int> CFG[] =
 	pair<string, int>("ELSE", 0),
 	pair<string, int>("RETURN", 3),
 	pair<string, int>("CDECL", 5),
-	pair<string, int>("CDECL", 2),
-	pair<string, int>("CDECL", 2),
-	pair<string, int>("CDECL", 0)
+	pair<string, int>("ODECL", 2),
+	pair<string, int>("ODECL", 2),
+	pair<string, int>("ODECL", 0)
 };
 
 #endif // !SLR_TABLE_H
